@@ -5,9 +5,20 @@
   grid-auto-rows: 50px;
   grid-gap: 5px;
   justify-content: center;
-  padding-top: 10vh;
 }
 
-.Square {
+.Empty {
   background-color: black;
+}
+
+.Food {
+  background-color: palevioletred;
+}
+
+.Snake {
+  background-color: forestgreen;
+}
+
+.Game {
+  text-align: center;
 }
