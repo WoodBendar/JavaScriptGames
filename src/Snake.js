@@ -1,20 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Snake.css";
 
 const Snake = () => {
   const [alive, setAlive] = useState(true);
-  const grid = initializeGrid();
+  const [food, setFood] = useState(55);
+  const [snakeHead, setSnakeHead] = useState(25);
+  const [grid, setGrid] = useState(initializeGrid());
 
   function initializeGrid() {
     const newGrid = Array(100).fill("Empty");
-    newGrid[55] = "Food";
-    newGrid[25] = "Snake";
     return newGrid;
   }
 
-  function newFood() {
-    grid[Math.floor(Math.random() * 100)] = "Food";
+  function drawGrid() {
+    const newGrid = [...grid];
+    newGrid[food] = "Food";
+    newGrid[snakeHead] = "Snake";
+    setGrid(newGrid);
   }
+
+  function newFood() {
+    setFood(Math.floor(Math.random() * 100));
+  }
+
+  useEffect((snakeHead) => {
+    function moveSnakeHead(event) {
+      console.log(event);
+      switch (event.key) {
+        case "ArrowUp":
+          setSnakeHead(snakeHead - 10);
+          break;
+        case "ArrowDown":
+          setSnakeHead(snakeHead + 10);
+          break;
+        case "ArrowLeft":
+          setSnakeHead(snakeHead - 1);
+          break;
+        case "ArrowRight":
+          setSnakeHead(snakeHead + 1);
+          break;
+        default:
+          break;
+      }
+    }
+
+    window.addEventListener("keypress", moveSnakeHead);
+  }, []);
 
   return (
     <div className="Game">
